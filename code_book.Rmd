@@ -1,0 +1,58 @@
+---
+title: "CleaningData"
+author: "Utku Sahin"
+date: "October 25, 2015"
+output: html_document
+---
+
+## Project Description
+The course project for Getting and Cleaning Data on Coursera
+
+##Study design and data processing
+
+###Collection of the raw data
+The raw data was provided beforehand on the URL:
+https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip
+
+##Creating the tidy datafile
+
+###Guide to create the tidy data file
+  1)Merge the training and the test sets to create one data set.
+  2)Extract only the measurements on the mean and standard deviation for each measurement. 
+  3)Use descriptive activity names to name the activities in the data set
+  4)Appropriately label the data set with descriptive variable names. 
+  5)From the data set in step 4, create a second, independent tidy data set with the average of each variable for each activity and each subject.
+
+
+###Cleaning of the data
+[The README file that explains the script](https://github.com/Haskman/Getting_Cleaning_Data_Project/blob/master/README.md)
+
+##Description of the variables in the tiny_data.txt file
+General description of the file including:
+ - The dataset has 10299 rows where each correspond to an observation and 3 columns where each correspond to a variable
+ - The data is a cleaned version of a Samsung experiment in which accelerometer data from Samsung Galaxy S2 was collected from volunteers performing various tasks
+ - The variables are Measurement, Activity and Subject
+
+###Measurement
+Variable describes the average acceleration during each measurement
+
+ - Factor with 10299 levels
+ - Each value is calculated by getting the average of multiple measurments for each subject/activity pair in the raw data
+ - Unit of measurement is in g(gravity acceleration)
+
+###Activity
+Variable describes the activity performed by the subject
+
+ - Factor with 6 levels
+ - Literally describes what the subjec was doing
+ - Is a string
+
+###Subject
+Variable describes which subject performed the task
+
+ - int vector with 30 unique values and 10299 values
+ - Each value corresponds to which subject had performed the task
+ - Corresponds to the subject's number
+
+##Sources
+[http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones](http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones)
