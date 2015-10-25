@@ -17,6 +17,9 @@ subject_data <- rbind(subject_test, subject_train)
 #Merge the merged test and data sets into one final dataset with cbind()
 initial_data <- cbind(X_data, y_data, subject_data)
 
+#Create a new data set from the initial data to use as the final set
+final_data <- initial_data
+
 #Clean the variables no longer necessary
 remove(X_test)
 remove(X_train)
@@ -37,7 +40,7 @@ std_deviations <- c()
 
 #Loop over column 1 to split measures, convert to numeric and get the means and std.deviations while ignoring NA values
 
-for (entry in initial_data[, 1]){
+for (entry in final_data[, 1]){
   means <- c(means, mean(na.omit(sapply(strsplit(entry, " "), as.numeric))))
   std_deviations <- c(std_deviations, sd(na.omit(sapply(strsplit(entry, " "), as.numeric))))
 }
@@ -45,7 +48,26 @@ for (entry in initial_data[, 1]){
 #remove unnecessary variable
 remove(entry)
 
-#Uses descriptive activity names to name the activities in the data set
-#Appropriately labels the data set with descriptive variable names. 
 
-#From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject
+##Label the data set with descriptive variable names.
+names(final_data) <- c("Measurement","Activity","Subject")
+
+##Use descriptive activity names to replace the activities in the data set
+
+#Load activity name data
+activity_labels <- read.table("activity_labels.txt")
+activity_labels[,2] <- as.character(activity_labels[,2])
+
+#Replace activity numbers with activity names
+final_data$Activity <- factor(final_data$Activity, levels = activity_labels[,1], labels = activity_labels[,2])
+
+#remove unnecessary variable
+remove(activity_labels)
+
+##Create a second, independent tidy data set with the average of each variable for each activity and each subject
+
+#Replace first column with the means vector
+final_data$Measurement <- factor(final_data$Measurement, levels = final_data$Measurement, labels = means)
+
+#Write an ouput file for the final data
+write.table(final_data, "output.txt", row.names = FALSE)
